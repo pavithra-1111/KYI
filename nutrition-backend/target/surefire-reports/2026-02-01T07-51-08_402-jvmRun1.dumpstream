@@ -1,0 +1,9 @@
+# Created at 2026-02-01T07:51:08.668
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'Error occurred during initialization of VM'.
+
+# Created at 2026-02-01T07:51:08.670
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'java.lang.Error: A command line option has attempted to allow or enable the Security Manager. Enabling a Security Manager is not supported.'.
+
+# Created at 2026-02-01T07:51:08.671
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream '	at java.lang.System.initPhase3(java.base@25.0.1/System.java:1969)'.
+

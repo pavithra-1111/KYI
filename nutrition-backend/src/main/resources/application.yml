@@ -6,17 +6,24 @@ spring:
     active: local
 
   datasource:
-    url: jdbc:h2:mem:nutritiondb
-    driverClassName: org.h2.Driver
+    url: jdbc:duckdb:nutrition.db
+    driverClassName: org.duckdb.DuckDBDriver
     username: sa
     password: password
   
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+      temp:
+        use_jdbc_metadata_defaults: false
     show-sql: true
     defer-datasource-initialization: true
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
   # OpenAPI Configuration
 springdoc:

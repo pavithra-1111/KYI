@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,9 +32,11 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Product> searchByName(@RequestParam String name) {
-        return productRepository.findByNameContainingIgnoreCase(name)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<Product>> searchByName(@RequestParam String name) {
+        List<Product> products = productRepository.findByNameContainingIgnoreCase(name);
+        if (products.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(products);
     }
 }

@@ -8,19 +8,28 @@ import java.util.List;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-    private String brand;
+    @Column(name = "code")
     private String barcode;
+
+    @Column(name = "name")
+    private String name;
+    @Column(name = "brand")
+    private String brand;
+    @Column(name = "image_url", length = 2048)
     private String imageUrl;
 
+    @Column(name = "nutri_score")
     private String nutriScore;
-    private int novaGroup;
+    @Column(name = "nova_group")
+    private Integer novaGroup;
 
-    @ElementCollection
-    private List<String> ingredients;
+    // ... (skipping interim lines if possible, but replace_file_content needs
+    // contiguous block or I use multi_replace.
+    // Wait, the field is at line 24. methods are at line 77.
+    // I should use multi_replace for this.
+
+    @Column(name = "ingredients", columnDefinition = "TEXT")
+    private String ingredients;
 
     private double protein;
     private double carbs;
@@ -29,12 +38,12 @@ public class Product {
     private double sugar;
     private double salt;
 
-    public Long getId() {
-        return id;
+    public String getBarcode() {
+        return barcode;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
     public String getName() {
@@ -53,14 +62,6 @@ public class Product {
         this.brand = brand;
     }
 
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -77,19 +78,19 @@ public class Product {
         this.nutriScore = nutriScore;
     }
 
-    public int getNovaGroup() {
+    public Integer getNovaGroup() {
         return novaGroup;
     }
 
-    public void setNovaGroup(int novaGroup) {
+    public void setNovaGroup(Integer novaGroup) {
         this.novaGroup = novaGroup;
     }
 
-    public List<String> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 

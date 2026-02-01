@@ -17,7 +17,8 @@ public class HealthEngineService {
         // 1. Allergies Check
         if (user != null && user.getAllergies() != null) {
             for (String allergy : user.getAllergies()) {
-                if (product.getIngredients().stream()
+                if (product.getIngredients() != null && java.util.Arrays.stream(product.getIngredients().split(","))
+                        .map(String::trim)
                         .anyMatch(ing -> ing.toLowerCase().contains(allergy.toLowerCase()))) {
                     riskFlags.add("CONTAINS ALLERGEN: " + allergy.toUpperCase());
                     recommendation = "AVOID";

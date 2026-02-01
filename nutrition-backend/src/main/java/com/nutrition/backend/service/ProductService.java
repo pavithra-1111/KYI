@@ -62,7 +62,7 @@ public class ProductService {
         Product p = new Product();
         p.setName(name);
         p.setBrand("Unknown Brand");
-        p.setIngredients(java.util.List.of("Water", "Sugar", "Flavouring")); // Default mock
+        p.setIngredients("Water, Sugar, Flavouring"); // Default mock
         p.setProtein(1.0);
         p.setCarbs(12.0);
         p.setSugar(12.0);

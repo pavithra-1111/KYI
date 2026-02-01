@@ -91,10 +91,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         width: 180,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage(product.imageUrl),
-                            fit: BoxFit.cover,
-                          ),
+                          image: product.imageUrl.isNotEmpty
+                              ? DecorationImage(
+                                  image: NetworkImage(product.imageUrl),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withValues(alpha: 0.1),
@@ -103,6 +105,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                           ],
                         ),
+                        child: product.imageUrl.isEmpty 
+                            ? const Icon(Icons.image, size: 64, color: Colors.grey)
+                            : null,
                       ),
                     ),
                   ),

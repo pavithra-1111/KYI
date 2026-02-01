@@ -1,12 +1,14 @@
+/Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/config/CustomDuckDBDialect.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/controller/UserController.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/service/NutriScoreService.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/controller/AnalysisController.java
+/Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/config/DuckDBInitializer.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/repository/ProductRepository.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/controller/ProductController.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/model/Product.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/model/User.java
-/Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/service/HealthEngineService.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/service/ProductService.java
+/Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/NutritionBackendApplication.java
+/Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/service/HealthEngineService.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/repository/UserRepository.java
 /Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/service/NovaService.java
-/Users/pavithra/repos/KYI-FE/nutrition-backend/src/main/java/com/nutrition/backend/NutritionBackendApplication.java

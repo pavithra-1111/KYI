@@ -19,20 +19,22 @@ public class NovaService {
         if (product.getIngredients() == null || product.getIngredients().isEmpty())
             return 1;
 
-        boolean hasUltraProcessed = product.getIngredients().stream()
+        List<String> ingredientsList = Arrays.asList(product.getIngredients().split(","));
+
+        boolean hasUltraProcessed = ingredientsList.stream()
                 .anyMatch(ing -> ULTRA_PROCESSED_KEYWORDS.stream().anyMatch(k -> ing.toLowerCase().contains(k)));
 
         if (hasUltraProcessed)
             return 4;
 
-        boolean hasCulinary = product.getIngredients().stream()
+        boolean hasCulinary = ingredientsList.stream()
                 .anyMatch(ing -> PROCESSED_CULINARY_KEYWORDS.stream().anyMatch(k -> ing.toLowerCase().contains(k)));
 
         // If it has added sugar/oil/salt and comes in a can/jar (implied), it's likely
         // Group 3
         // But for simplified logic, if it has many ingredients > 5 and culinary
         // ingredients, assume 3.
-        if (hasCulinary && product.getIngredients().size() > 5)
+        if (hasCulinary && ingredientsList.size() > 5)
             return 3;
 
         if (hasCulinary)

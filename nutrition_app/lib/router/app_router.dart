@@ -4,6 +4,7 @@ import '../screens/login_screen.dart';
 import '../screens/profile_setup_screen.dart';
 import '../screens/dashboard_screen.dart';
 import '../screens/product_details_screen.dart';
+import '../screens/search_results_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -29,6 +30,13 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final id = state.pathParameters['id']!;
         return ProductDetailsScreen(productId: id);
+      },
+    ),
+    GoRoute(
+      path: '/search-results',
+      builder: (context, state) {
+        final query = state.uri.queryParameters['query'] ?? '';
+        return SearchResultsScreen(query: query);
       },
     ),
   ],

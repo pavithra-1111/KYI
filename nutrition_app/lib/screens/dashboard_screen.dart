@@ -56,6 +56,58 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Search Bar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.03),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search products...',
+                  hintStyle: GoogleFonts.inter(color: Colors.grey),
+                  border: InputBorder.none,
+                  icon: const Icon(Icons.search, color: AppColors.textSecondary),
+                ),
+                onSubmitted: (query) async {
+                  if (query.isNotEmpty) {
+                    // Show Loading
+                    showDialog(
+                      context: context, 
+                      barrierDismissible: false, 
+                      builder: (ctx) => const Center(child: CircularProgressIndicator())
+                    );
+
+                    final provider = context.read<AppProvider>();
+                    await provider.searchProducts(query);
+                    
+                    if (!context.mounted) return;
+                    Navigator.pop(context); // Hide Loading
+
+                    if (provider.products.length == 1) {
+                      context.push('/product/${provider.products.first.id}');
+                    } else if (provider.products.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('No products found')),
+                      );
+                    } else {
+                      context.push('/search-results?query=$query');
+                    }
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 24),
+
             // Actions Grid
             GridView.count(
               shrinkWrap: true,
@@ -70,7 +122,7 @@ class DashboardScreen extends StatelessWidget {
                   'Barcode Scan', 
                   Icons.qr_code_scanner, 
                   AppColors.primary,
-                  () => context.read<AppProvider>().scanProduct(),
+                  () => _showBarcodeDialog(context),
                 ),
                 _buildActionCard(
                   context, 
@@ -193,4 +245,71 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _showBarcodeDialog(BuildContext context) {
+    final TextEditingController barcodeController = TextEditingController(text: '3017620422003'); // Pre-filled for testing
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Enter Barcode', style: GoogleFonts.outfit(fontWeight: FontWeight.bold)),
+        content: TextField(
+          controller: barcodeController,
+          keyboardType: TextInputType.number,
+          decoration: const InputDecoration(
+            hintText: 'E.g. 3017620422003',
+            border: OutlineInputBorder(),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final barcode = barcodeController.text.trim();
+              if (barcode.isNotEmpty) {
+                 Navigator.pop(ctx); // Close Input Dialog logic
+
+                 // Show Loading
+                 showDialog(
+                   context: context, 
+                   barrierDismissible: false, 
+                   builder: (context) => const Center(child: CircularProgressIndicator())
+                 );
+
+                 final provider = context.read<AppProvider>();
+                 await provider.scanProduct(barcode);
+
+                 if (!context.mounted) return;
+                 Navigator.pop(context); // Hide Loading
+
+                 if (provider.products.length == 1) {
+                   context.push('/product/${provider.products.first.id}');
+                 } else if (provider.products.isNotEmpty) {
+                    context.push('/search-results?query=$barcode');
+                 } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Product not found')),
+                    );
+                 }
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Scan'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper method if needed, but we used inline showDialog above.
+  // Actually, let's update _showBarcodeDialog to use the loading indicator too.
+  // ... Wait, I can't easily edit _showBarcodeDialog in this single chunk comfortably without replacing too much.
+  // I'll leave the instruction to just do the search part first? No, user wants it for "dashboard".
+  // I will replace the logic inside _showBarcodeDialog in a separate chunk or this one if I map carefully.
+  // Let's replace the ElevatedButton logic in _showBarcodeDialog.
 }

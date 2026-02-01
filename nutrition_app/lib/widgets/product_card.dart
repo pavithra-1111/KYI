@@ -30,11 +30,14 @@ class ProductCard extends StatelessWidget {
                   width: 80,
                   height: 80,
                   color: Colors.grey[200],
-                  child: CachedNetworkImage(
-                    imageUrl: product.imageUrl,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Icon(Icons.image, color: Colors.grey),
-                  ),
+                  child: product.imageUrl.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: product.imageUrl,
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => const Icon(Icons.image_not_supported, color: Colors.grey),
+                          placeholder: (context, url) => const Icon(Icons.image, color: Colors.grey),
+                        )
+                      : const Icon(Icons.image, color: Colors.grey),
                 ),
               ),
               const SizedBox(width: 16),
